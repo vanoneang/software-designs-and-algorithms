@@ -6,34 +6,19 @@ import SearchIcon from '@mui/icons-material/Search';
 import styles from './Search.module.scss';
 
 interface SearchProps {
-  store?: {};
-  updateStore?: (val) => void;
+  keyword?: {};
+  setKeyword?: (val) => void;
 }
 
-// OR
-
-//interface SearchProps {
-//  selected?: {};
-//  updateSelected?: (val) => void;
-//}
-
-// OR store can be global
-
-export function Search(props: SearchProps) {
-  const [searchedValue, setSearchedValue] = useState<string>('');
-
-  const onChange = (value) => {
-    console.log(value); // for debugging
-    setSearchedValue(value);
-  }
+export function Search({ keyword, setKeyword }: SearchProps) {
 
   return (
     <OutlinedInput
       className={styles.input}
       placeholder="Search by country/name/username"
-      value={searchedValue}
+      value={keyword}
       type="search"
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(e) => setKeyword(e.target.value)}
       startAdornment={
         <InputAdornment position="start">
           <SearchIcon />
