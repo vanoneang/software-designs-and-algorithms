@@ -4,18 +4,9 @@ import Checkbox from '@mui/material/Checkbox';
 import styles from './Filters.module.scss';
 
 interface FiltersProps {
-  store?: {};
-  updateStore?: (val) => void;
+  filters?: string[];
+  setFilters?: (val: string[]) => void;
 }
-
-// OR
-
-//interface FiltersProps {
-//  selected?: {};
-//  updateSelected?: (val) => void;
-//}
-
-// OR store can be global
 
 const OPTIONS = [
   {
@@ -26,22 +17,17 @@ const OPTIONS = [
   },
 ];
 
-export function Filters(props: FiltersProps) {
-  const [selectedFilter, setSelectedFilter] = useState<string[]>([]);
+export function Filters({ filters, setFilters }: FiltersProps) {
 
   const onChange = ({ title }) => {
-    console.log(title); // for debugging
-
     let updatedFilters;
-    if (selectedFilter.find((filter) => filter === title)) {
-      updatedFilters = selectedFilter.filter(
-        (filter) => filter !== title
-      );
+    if (filters.find((filter) => filter === title)) {
+      updatedFilters = filters.filter((filter) => filter !== title);
     } else {
-      updatedFilters = [...selectedFilter, title];
+      updatedFilters = [...filters, title];
     }
 
-    setSelectedFilter(updatedFilters);
+    setFilters(updatedFilters);
   };
 
   return (
@@ -55,7 +41,7 @@ export function Filters(props: FiltersProps) {
             key={option.title}
           >
             <Checkbox
-              checked={!!selectedFilter.find(filter => filter === option.title)}
+              checked={!!filters.find(filter => filter === option.title)}
               value={option.title}
               onChange={() => onChange(option)}
               size="small"
