@@ -6,7 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import styles from './Search.module.scss';
 
 interface SearchProps {
-  keyword?: {};
+  keyword?: string;
   setKeyword?: (val) => void;
 }
 

@@ -16,3 +16,13 @@ export const keywordFilter = (keyword: string) => (row: Row) =>
 export const minPostsFilter = (posts: number) => (row: Row) => row.posts > posts;
 
 export const withoutPostsFilter = (row: Row) => row.posts === 0;
+
+export const sortByPayments = (rows: Row[], sort: string) => {
+  if (!sort) {
+    return rows;
+  }
+
+  const sortedRows = [...rows].sort((a, b) => (a.lastPayments || 0) - (b.lastPayments || 0))
+
+  return sort === 'asc' ? sortedRows : sortedRows.reverse();
+}
