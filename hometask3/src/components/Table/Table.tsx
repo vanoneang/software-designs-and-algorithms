@@ -15,6 +15,8 @@ export interface Row {
   posts: number
 }
 
+export type FilterFunction = (row: Row) => boolean
+
 interface TableProps {
   rows: Row[]
 }
