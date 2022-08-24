@@ -1,3 +1,5 @@
+import { Pack } from "./Pack";
+
 export interface IState {
   shipmentId: number;
   toAddress: string;
@@ -12,7 +14,7 @@ export interface IState {
 }
 
 export interface IShipper {
-  getCost(parcel): number;
+  getCost(pack: Pack): number;
 }
 
 export enum PackType {
