@@ -1,5 +1,5 @@
 export class Vertex {
-  private key: string
+  public key: string
 
   constructor(key: string) {
     this.key = key

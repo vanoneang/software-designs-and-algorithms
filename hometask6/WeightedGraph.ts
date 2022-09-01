@@ -3,6 +3,8 @@ import { Edge } from "./Edge";
 export interface WeightedGraph<T> {
   addVertex(vertex: T): void;
   addEdge(vertex1: T, vertex2: T, weight: number): void;
+  vertices: T[];
+  edges: Edge<T>[];
 }
 
 export class Graph<T> implements WeightedGraph<T> {
