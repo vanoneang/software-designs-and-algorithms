@@ -24,27 +24,23 @@ export class Dijkstra<T> implements IDijkstra<Vertex> {
 
     while (visited.length < this.graph.vertices.length) {
       const unvisitedVertices = this.graph.vertices.filter(item => !visited.includes(item))
-
-      const minVertex = unvisitedVertices.reduce(
-        (acc, item) => paths[item.key].distance < paths[acc.key].distance ? item : acc,
-        unvisitedVertices[0]
-      )
+      const minimumVertex = this.getMinimumVertex(unvisitedVertices, paths)
 
       this.graph.edges.forEach(item => {
-        if (item.from === minVertex || item.to === minVertex) {
-          const adjacentVertex = item.from === minVertex ? item.to : item.from
-          const newDistance = paths[minVertex.key].distance + item.weight
+        if (item.from === minimumVertex || item.to === minimumVertex) {
+          const adjacentVertex = item.from === minimumVertex ? item.to : item.from
+          const newDistance = paths[minimumVertex.key].distance + item.weight
 
           if (newDistance < paths[adjacentVertex.key].distance) {
             paths[adjacentVertex.key] = {
               distance: newDistance,
-              path: [...paths[minVertex.key].path, adjacentVertex.key],
+              path: [...paths[minimumVertex.key].path, adjacentVertex.key],
             }
           }
         }
       })
 
-      visited.push(minVertex)
+      visited.push(minimumVertex)
     }
 
     return paths
@@ -60,6 +56,13 @@ export class Dijkstra<T> implements IDijkstra<Vertex> {
     })
 
     return paths
+  }
+
+  getMinimumVertex(vertices: Vertex[], paths: Record<string, Path>) {
+    return vertices.reduce(
+      (acc, item) => paths[item.key].distance < paths[acc.key].distance ? item : acc,
+      vertices[0]
+    )
   }
 
   findShortestPath(vertex1: Vertex, vertex2: Vertex): Path {
